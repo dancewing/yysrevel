@@ -1,0 +1,2 @@
+# yysrevel
+revel application sample
