@@ -27,7 +27,7 @@ $(function(){
 
     var pgwBrowser = $.pgwBrowser();
     if (pgwBrowser.os.group == 'iOS' || pgwBrowser.os.group == 'Android' || pgwBrowser.os.group == 'Windows Phone') {
-        $('#searchMonsters').bind('change', searchMonsters);
+        $('#searchMonsters').bind('input', searchMonsters);
     } else {
         $('#searchMonsters').bind('keyup', searchMonsters);
     }
