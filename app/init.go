@@ -1,6 +1,7 @@
 package app
 
 import (
+	"github.com/dancewing/yysrevel/app/models"
 	"github.com/revel/revel"
 )
 
@@ -26,9 +27,9 @@ func init() {
 		HeaderFilter,                  // Add some security based headers
 		revel.InterceptorFilter,       // Run interceptors around the action.
 		revel.CompressFilter,          // Compress the result.
-		revel.ActionInvoker,           // Invoke the action.
+		UserSessionFilter,
+		revel.ActionInvoker, // Invoke the action.
 	}
-
 
 	// register startup functions with OnAppStart
 	// revel.DevMode and revel.RunMode only work inside of OnAppStart. See Example Startup Script
@@ -46,6 +47,29 @@ var HeaderFilter = func(c *revel.Controller, fc []revel.Filter) {
 	c.Response.Out.Header().Add("X-Frame-Options", "SAMEORIGIN")
 	c.Response.Out.Header().Add("X-XSS-Protection", "1; mode=block")
 	c.Response.Out.Header().Add("X-Content-Type-Options", "nosniff")
+
+	fc[0](c, fc[1:]) // Execute the next filter stage.
+}
+
+// UserSessionFilter determine user session
+// TODO turn this into revel.HeaderFilter
+// should probably also have a filter for CSRF
+// not sure if it can go in the same filter or not
+var UserSessionFilter = func(c *revel.Controller, fc []revel.Filter) {
+
+	username := ""
+	signed := false
+	if c.ViewArgs["user"] != nil {
+		username = c.ViewArgs["user"].(*models.User).Username
+		signed = true
+	}
+	if usernameinSession, ok := c.Session["user"]; ok {
+		username = usernameinSession
+		signed = true
+	}
+
+	c.ViewArgs["Signed"] = signed
+	c.ViewArgs["UserName"] = username
 
 	fc[0](c, fc[1:]) // Execute the next filter stage.
 }
