@@ -3,7 +3,7 @@ package services
 import (
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/dancewing/yysrevel/app/orm"
+	"github.com/dancewing/go-orm"
 	_ "github.com/go-sql-driver/mysql" // inital mysql driver
 
 	"github.com/revel/modules/db/app"

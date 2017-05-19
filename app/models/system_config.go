@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/dancewing/yysrevel/app/orm"
+	"github.com/dancewing/go-orm"
 	"time"
 )
 

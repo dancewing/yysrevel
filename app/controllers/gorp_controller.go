@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"database/sql"
-	"github.com/dancewing/yysrevel/app/orm"
+	"github.com/dancewing/go-orm"
 	"github.com/dancewing/yysrevel/app/services"
 	r "github.com/revel/revel"
 )
