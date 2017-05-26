@@ -2,9 +2,9 @@ package controllers
 
 import (
 	"database/sql"
-	"github.com/dancewing/go-orm"
-	"github.com/dancewing/yysrevel/app/services"
-	r "github.com/revel/revel"
+
+	r "github.com/dancewing/revel"
+	"github.com/dancewing/revel/orm"
 )
 
 type GorpController struct {
@@ -13,7 +13,7 @@ type GorpController struct {
 }
 
 func (c *GorpController) Begin() r.Result {
-	txn, err := services.Dbm.Begin()
+	txn, err := orm.Database().Get().Begin()
 	if err != nil {
 		panic(err)
 	}

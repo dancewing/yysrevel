@@ -1,8 +1,11 @@
 package controllers
 
 import (
+	"fmt"
+
+	"github.com/dancewing/revel"
+	"github.com/dancewing/revel/orm"
 	"github.com/dancewing/yysrevel/app/models"
-	"github.com/revel/revel"
 )
 
 type User struct {
@@ -11,13 +14,16 @@ type User struct {
 }
 
 func (c User) List() revel.Result {
-	users, err := c.Txn.Select(models.User{}, `select * from User_`)
+	//users, err := c.Txn.Select(models.User{}, `select * from User_`)
+
+	users, err := c.Txn.CreateCriteria(models.User{}).Add(orm.Restrictions.Like("Username", "demo")).List()
+
 	if err != nil {
 		panic(err)
 	}
-	if len(users) == 0 {
-		return nil
-	}
+
+	fmt.Println(len(users))
+
 	c.ViewArgs["users"] = users
 	return c.Render()
 }

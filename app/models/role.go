@@ -2,19 +2,17 @@ package models
 
 import (
 	"fmt"
-	"github.com/revel/revel"
+
+	"github.com/dancewing/revel"
+	"github.com/dancewing/revel/orm"
 )
 
 type Role struct {
-	RoleID     int
-	Name       string
-	Descrption string
-	IsDefault  bool
-}
-
-type UserRole struct {
-	UserID int
-	RoleID int
+	RoleID      int `orm:"pk;auto"`
+	Name        string
+	Description string
+	IsDefault   bool
+	Users       []*User `orm:"rel(m2m)"`
 }
 
 func (r *Role) String() string {
@@ -28,4 +26,8 @@ func (role *Role) Validate(v *revel.Validation) {
 		revel.MinSize{4},
 		revel.Match{userRegex},
 	)
+}
+
+func init() {
+	orm.RegisterModel(new(Role))
 }

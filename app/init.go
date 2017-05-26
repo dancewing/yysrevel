@@ -2,7 +2,7 @@ package app
 
 import (
 	"github.com/dancewing/yysrevel/app/models"
-	"github.com/revel/revel"
+	"github.com/dancewing/revel"
 )
 
 var (

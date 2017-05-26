@@ -1,8 +1,8 @@
 package controllers
 
 import (
+	"github.com/dancewing/revel"
 	"github.com/dancewing/yysrevel/app/services"
-	"github.com/revel/revel"
 )
 
 func init() {

@@ -1,71 +1,86 @@
 package services
 
 import (
+	"fmt"
+
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/dancewing/go-orm"
+	"github.com/dancewing/revel/orm"
 	_ "github.com/go-sql-driver/mysql" // inital mysql driver
 
-	"github.com/revel/modules/db/app"
-	r "github.com/revel/revel"
+	r "github.com/dancewing/revel"
+	"github.com/dancewing/revel/modules/db/app"
 
 	"github.com/dancewing/yysrevel/app/models"
-)
-
-var (
-	Dbm *orm.DbMap
 )
 
 func InitDB() {
 
 	db.Init()
-	Dbm = &orm.DbMap{Db: db.Db, Dialect: orm.MySQLDialect{"InnoDB", "UTF8"}}
 
-	setColumnSizes := func(t *orm.TableMap, colSizes map[string]int) {
-		for col, size := range colSizes {
-			t.ColMap(col).MaxSize = size
-		}
-	}
+	fmt.Println("initial function for db")
 
-	t := Dbm.AddTableWithName(models.User{}, "user_").SetKeys(true, "UserID")
-	t.ColMap("Password").Transient = true
-	setColumnSizes(t, map[string]int{
-		"Username": 20,
-		"Name":     100,
-	})
+	Dbm := &orm.DbMap{Db: db.Db, Dialect: orm.MySQLDialect{"InnoDB", "UTF8"}}
 
-	t = Dbm.AddTableWithName(models.Role{}, "role_").SetKeys(true, "RoleID")
-	setColumnSizes(t, map[string]int{
-		"Name":       50,
-		"Descrption": 500,
-	})
+	orm.Database().Set(Dbm)
 
-	t = Dbm.AddTableWithName(models.UserRole{}, "user_role").SetKeys(false, "UserID", "RoleID")
+	orm.BootStrap()
 
-	t = Dbm.AddTableWithName(models.Resource{}, "resource_").SetKeys(true, "ResourceID")
-	setColumnSizes(t, map[string]int{
-		"ControllerAction": 250,
-	})
+	//Dbm.RegisterModel(new(models.User))
 
-	t = Dbm.AddTableWithName(models.RoleResource{}, "role_resource").SetKeys(false, "RoleID", "ResourceID")
+	// Dbm.RegisterModel(new(models.Role))
 
-	//system config
-	t = Dbm.AddTableWithName(models.SystemConfig{}, "system_config").SetKeys(true, "Version")
+	// Dbm.RegisterModel(new(models.Post))
 
-	//yys tables;
-	t = Dbm.AddTableWithName(models.YysAccount{}, "yys_account").SetKeys(true, "ID")
+	// Dbm.RegisterModel(new(models.UserRole))
 
-	t = Dbm.AddTableWithName(models.YysCards{}, "yys_cards").SetKeys(true, "ID")
-	t.ColMap("AccountID").Rename("yys_account_id")
+	// Dbm.RegisterModel(new(models.Resource))
 
-	t = Dbm.AddTableWithName(models.YysRole{}, "yys_role").SetKeys(true, "ID")
-	t.ColMap("RoleName").Rename("role_name")
+	// Dbm.RegisterModel(new(models.RoleResource))
 
-	t = Dbm.AddTableWithName(models.YysSupian{}, "yys_suipian").SetKeys(true, "ID")
-	t.ColMap("AccountID").Rename("yys_account_id")
-	t.ColMap("RoleID").Rename("role_id")
+	// Dbm.RegisterModel(new(models.SystemConfig))
+
+	// Dbm.RegisterModel(new(models.YysAccount))
+
+	// Dbm.RegisterModel(new(models.YysCards))
+
+	// Dbm.RegisterModel(new(models.YysRole))
+
+	// Dbm.RegisterModel(new(models.YysSupian))
+
+	// t = Dbm.AddTableWithName(models.Role{}, "role_").SetKeys(true, "RoleID")
+	// setColumnSizes(t, map[string]int{
+	// 	"Name":       50,
+	// 	"Descrption": 500,
+	// })
+	//
+	// t = Dbm.AddTableWithName(models.UserRole{}, "user_role").SetKeys(false, "UserID", "RoleID")
+	//
+	// t = Dbm.AddTableWithName(models.Resource{}, "resource_").SetKeys(true, "ResourceID")
+	// setColumnSizes(t, map[string]int{
+	// 	"ControllerAction": 250,
+	// })
+	//
+	// t = Dbm.AddTableWithName(models.RoleResource{}, "role_resource").SetKeys(false, "RoleID", "ResourceID")
+	//
+	// //system config
+	// t = Dbm.AddTableWithName(models.SystemConfig{}, "system_config").SetKeys(true, "Version")
+	//
+	// //yys tables;
+	// t = Dbm.AddTableWithName(models.YysAccount{}, "yys_account").SetKeys(true, "ID")
+	//
+	// t = Dbm.AddTableWithName(models.YysCards{}, "yys_cards").SetKeys(true, "ID")
+	// t.ColMap("AccountID").Rename("yys_account_id")
+	//
+	// t = Dbm.AddTableWithName(models.YysRole{}, "yys_role").SetKeys(true, "ID")
+	// t.ColMap("RoleName").Rename("role_name")
+	//
+	// t = Dbm.AddTableWithName(models.YysSupian{}, "yys_suipian").SetKeys(true, "ID")
+	// t.ColMap("AccountID").Rename("yys_account_id")
+	// t.ColMap("RoleID").Rename("role_id")
 
 	Dbm.TraceOn("[orm]", r.INFO)
+
 	Dbm.CreateTablesIfNotExists()
 
 	configs, err := Dbm.Select(models.SystemConfig{}, `select * from system_config`)
@@ -82,7 +97,7 @@ func InitDB() {
 		}
 		if !initaledData {
 			bcryptPassword, _ := bcrypt.GenerateFromPassword([]byte("demo"), bcrypt.DefaultCost)
-			demoUser := &models.User{0, "Demo User", "demo", "demo", bcryptPassword}
+			demoUser := &models.User{0, "Demo User", "demo", "demo", bcryptPassword, nil, nil}
 			if err := Dbm.Insert(demoUser); err != nil {
 				panic(err)
 			}

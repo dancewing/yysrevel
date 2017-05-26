@@ -3,7 +3,7 @@ package controllers
 import (
 	"github.com/dancewing/yysrevel/app/models"
 	"github.com/dancewing/yysrevel/app/routes"
-	"github.com/revel/revel"
+	"github.com/dancewing/revel"
 	"golang.org/x/crypto/bcrypt"
 )
 

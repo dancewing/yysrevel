@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"github.com/revel/revel/testing"
+	"github.com/dancewing/revel/testing"
 )
 
 type AppTest struct {

@@ -2,16 +2,24 @@ package models
 
 import (
 	"fmt"
-	"github.com/revel/revel"
 	"regexp"
+
+	"github.com/dancewing/revel"
+	"github.com/dancewing/revel/orm"
 )
 
 type User struct {
-	UserID         int
+	UserID         int `orm:"pk;auto"`
 	Name           string
-	Username       string
-	Password       string
+	Username       string `orm:";size(50)"`
+	Password       string `orm:"-"`
 	HashedPassword []byte
+	Roles          []*Role `orm:"reverse(many)"`
+	Posts          []*Post `orm:"reverse(many)"`
+}
+
+func (u *User) TableName() string {
+	return "user_"
 }
 
 func (u *User) String() string {
@@ -43,4 +51,8 @@ func ValidatePassword(v *revel.Validation, password string) *revel.ValidationRes
 		revel.MaxSize{15},
 		revel.MinSize{5},
 	)
+}
+
+func init() {
+	orm.RegisterModel(new(User))
 }
