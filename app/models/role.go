@@ -8,11 +8,12 @@ import (
 )
 
 type Role struct {
-	RoleID      int `orm:"pk;auto"`
-	Name        string
-	Description string
+	RoleID      int    `orm:"pk;auto"`
+	Name        string `orm:";size(150)"`
+	Description string `orm:";size(250)"`
 	IsDefault   bool
-	Users       []*User `orm:"rel(m2m)"`
+	Users       []*User     `orm:"rel(m2m)"`
+	Resources   []*Resource `orm:"reverse(many)"`
 }
 
 func (r *Role) String() string {

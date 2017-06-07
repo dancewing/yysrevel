@@ -1,0 +1,21 @@
+{
+    "yysApp": {
+        "yysRole" : {
+            "home": {
+                "title": "Yys Roles",
+                "createLabel": "Create a new Yys Role",
+                "createOrEditLabel": "Create or edit a Yys Role"
+            },
+            "created": "A new Yys Role is created with identifier {{ param }}",
+            "updated": "A Yys Role is updated with identifier {{ param }}",
+            "deleted": "A Yys Role is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Yys Role {{ id }}?"
+            },
+            "detail": {
+                "title": "Yys Role"
+            },
+            "roleName": "Role Name"
+        }
+    }
+}

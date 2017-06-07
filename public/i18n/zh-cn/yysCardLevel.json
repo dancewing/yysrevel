@@ -1,0 +1,10 @@
+{
+    "yysApp": {
+        "YysCardLevel" : {
+            "null": "",
+            "FOUR": "四星",
+            "FIVE": "五星",
+            "SIX": "六星"
+        }
+    }
+}

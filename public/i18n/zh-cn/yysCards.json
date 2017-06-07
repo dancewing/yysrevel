@@ -1,0 +1,24 @@
+{
+    "yysApp": {
+        "yysCards" : {
+            "home": {
+                "title": "Yys Cards",
+                "createLabel": "Create a new Yys Cards",
+                "createOrEditLabel": "Create or edit a Yys Cards"
+            },
+            "created": "A new Yys Cards is created with identifier {{ param }}",
+            "updated": "A Yys Cards is updated with identifier {{ param }}",
+            "deleted": "A Yys Cards is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Yys Cards {{ id }}?"
+            },
+            "detail": {
+                "title": "Yys Cards"
+            },
+            "card": "Card",
+            "level": "Level",
+            "quantity": "Quantity",
+            "yysAccount": "Yys Account"
+        }
+    }
+}

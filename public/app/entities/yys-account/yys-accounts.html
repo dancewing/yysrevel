@@ -1,0 +1,91 @@
+<div>
+    <h2 data-translate="yysApp.yysAccount.home.title">Yys Accounts</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="yys-account.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="yysApp.yysAccount.home.createLabel">
+                        Create new Yys Account
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="email"><span data-translate="yysApp.yysAccount.email">Email</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="name"><span data-translate="yysApp.yysAccount.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="level"><span data-translate="yysApp.yysAccount.level">Level</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th><span data-translate="yysApp.yysAccount.comment">Comment</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th><span data-translate="yysApp.yysAccount.cards">Cards</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th><span data-translate="yysApp.yysAccount.suipians">Suipians</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="yysAccount in vm.yysAccounts track by yysAccount.id">
+                    <td><a ui-sref="yys-account-detail({id:yysAccount.id})">{{yysAccount.id}}</a></td>
+                    <td>{{yysAccount.email}}</td>
+                    <td>{{yysAccount.name}}</td>
+                    <td>{{yysAccount.level}}</td>
+                    <td>{{yysAccount.comment}}</td>
+                    <td>
+                        <span ng-repeat="yycard in yysAccount.cards track by yycard.id ">
+                            <label>{{ "yysApp.YysCard." + yycard.card | translate }}, {{ "yysApp.YysCardLevel." + yycard.level | translate }}, {{yycard.quantity}}</label><br/>
+                        </span>
+                    </td>
+                    <td>
+                        <span ng-repeat="yysuipian in yysAccount.suipians track by yysuipian.id ">
+                            <label>{{ yysuipian.role.roleName }}, {{yysuipian.quantity}}</label><br/>
+                        </span>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="yys-account-detail({id:yysAccount.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="yys-account.edit({id:yysAccount.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="yys-account.delete({id:yysAccount.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" onclick="window.open('/api/yys-accounts/export')">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="yysApp.yysAccount.home.exportLabel">
+                        Export all accounts
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

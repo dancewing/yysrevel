@@ -6,6 +6,7 @@
 module:testrunner
 # module:jobs
 
+module:rest
 
 GET     /                                       Application.Index
 GET     /register                               Application.Register

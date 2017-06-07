@@ -5,6 +5,7 @@ import (
 
 	r "github.com/dancewing/revel"
 	"github.com/dancewing/revel/orm"
+	"github.com/dancewing/yysrevel/app/models"
 )
 
 type GorpController struct {
@@ -41,4 +42,25 @@ func (c *GorpController) Rollback() r.Result {
 	}
 	c.Txn = nil
 	return nil
+}
+
+func (c *GorpController) Connected() *models.User {
+	if c.ViewArgs["user"] != nil {
+		return c.ViewArgs["user"].(*models.User)
+	}
+	if username, ok := c.Session["user"]; ok {
+		return c.getUser(username)
+	}
+	return nil
+}
+
+func (c *GorpController) getUser(username string) *models.User {
+	users, err := c.Txn.Select(models.User{}, `select * from User_ where login = ?`, username)
+	if err != nil {
+		panic(err)
+	}
+	if len(users) == 0 {
+		return nil
+	}
+	return users[0].(*models.User)
 }

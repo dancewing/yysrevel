@@ -1,0 +1,10 @@
+{
+    "yysApp": {
+        "YysCard" : {
+            "null": "",
+            "DOUYU": "斗鱼",
+            "TAIGU": "太鼓",
+            "MEISHI": "美食"
+        }
+    }
+}

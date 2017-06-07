@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/dancewing/yysrevel/app/models"
 	"github.com/dancewing/revel"
+	"github.com/dancewing/yysrevel/app/models"
 )
 
 var (
@@ -60,7 +60,7 @@ var UserSessionFilter = func(c *revel.Controller, fc []revel.Filter) {
 	username := ""
 	signed := false
 	if c.ViewArgs["user"] != nil {
-		username = c.ViewArgs["user"].(*models.User).Username
+		username = c.ViewArgs["user"].(*models.User).Login
 		signed = true
 	}
 	if usernameinSession, ok := c.Session["user"]; ok {

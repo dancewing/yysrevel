@@ -92,15 +92,36 @@ func InitDB() {
 		if len(configs) > 0 {
 			config = configs[0].(*models.SystemConfig)
 			initaledData = config.IntitalSystemUser
+			//initaledData = false
 		} else {
 			initaledData = false
 		}
 		if !initaledData {
 			bcryptPassword, _ := bcrypt.GenerateFromPassword([]byte("demo"), bcrypt.DefaultCost)
-			demoUser := &models.User{0, "Demo User", "demo", "demo", bcryptPassword, nil, nil}
+			//demoUser := &models.User{0, "Demo User", "demo", "demo", bcryptPassword, nil, nil}
+
+			demoUser := &models.User{Login: "demo", HashedPassword: bcryptPassword, FirstName: "demo", LastName: "demo", Activated: true}
+
 			if err := Dbm.Insert(demoUser); err != nil {
 				panic(err)
 			}
+
+			role1 := &models.Role{Name: "ROLE_USER", IsDefault: true}
+			role2 := &models.Role{Name: "ROLE_ADMIN", IsDefault: true}
+
+			if err := Dbm.Insert(role1, role2); err != nil {
+				panic(err)
+			}
+
+			fmt.Println("demo user id ", demoUser.UserID)
+			fmt.Println("Role id: ", role1.RoleID, role2.RoleID)
+
+			demoUser.Roles = []*models.Role{role1, role2}
+
+			if err := Dbm.SaveM2M(demoUser, "Roles"); err != nil {
+				panic(err)
+			}
+
 			if config == nil {
 				config = new(models.SystemConfig)
 				config.IntitalSystemUser = true

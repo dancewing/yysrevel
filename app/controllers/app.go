@@ -1,9 +1,9 @@
 package controllers
 
 import (
+	"github.com/dancewing/revel"
 	"github.com/dancewing/yysrevel/app/models"
 	"github.com/dancewing/yysrevel/app/routes"
-	"github.com/dancewing/revel"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -17,18 +17,8 @@ type Application struct {
 // }
 
 func (c Application) AddUser() revel.Result {
-	if user := c.connected(); user != nil {
+	if user := c.Connected(); user != nil {
 		c.ViewArgs["user"] = user
-	}
-	return nil
-}
-
-func (c Application) connected() *models.User {
-	if c.ViewArgs["user"] != nil {
-		return c.ViewArgs["user"].(*models.User)
-	}
-	if username, ok := c.Session["user"]; ok {
-		return c.getUser(username)
 	}
 	return nil
 }
@@ -78,8 +68,8 @@ func (c Application) SaveUser(user models.User, verifyPassword string) revel.Res
 		panic(err)
 	}
 
-	c.Session["user"] = user.Username
-	c.Flash.Success("Welcome, " + user.Name)
+	c.Session["user"] = user.Login
+	c.Flash.Success("Welcome, " + user.LastName + "," + user.FirstName)
 	return c.Redirect(routes.Application.Index())
 }
 
@@ -112,5 +102,5 @@ func (c Application) Logout() revel.Result {
 	for k := range c.Session {
 		delete(c.Session, k)
 	}
-	return c.Redirect(routes.Application.Index())
+	return c.RenderText("ok", nil)
 }

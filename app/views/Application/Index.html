@@ -1,15 +1,15 @@
 {{set . "title" "Home"}}
 {{template "header.html" .}}
 
-    <!--[if lt IE 9]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
 
-
-{{template "navbar.html" .}}
-
-
-<div class="container">
+    <div ui-view="navbar" ng-cloak></div>
+    <div class="container">
+        <div class="well" ui-view="content">
+            <!-- Angular views -->
+        </div>
+    </div>
+    
+<!--<div class="container">
 
     <div class="well">
       <div class="span6">
@@ -19,7 +19,7 @@
       {{template "xsdata.html" .}}
     </div>
 
-</div>
+</div>-->
 
 
 {{template "footer.html" .}}

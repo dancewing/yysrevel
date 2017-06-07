@@ -1,4 +1,10 @@
+{{set . "title" "Home"}}
+{{template "header.html" .}}
 
+
+{{template "navbar.html" .}}
+
+<div class="container">
 <form name="editForm" role="form" novalidate ng-submit="vm.save()">
 
     <div class="modal-header">
@@ -8,10 +14,9 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" ng-show="vm.yysAccount.id">
-            <label for="id" data-translate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                    ng-model="vm.yysAccount.id" readonly />
+        <div class="form-group" >
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" readonly />
         </div>
         <div class="form-group">
             <label class="control-label" data-translate="yysApp.yysAccount.email" for="field_email">Email</label>
@@ -48,3 +53,5 @@
         </button>
     </div>
 </form>
+</div>
+{{template "footer.html" .}}

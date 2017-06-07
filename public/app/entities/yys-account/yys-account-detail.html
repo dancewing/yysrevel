@@ -1,0 +1,148 @@
+
+<div>
+    <h2><span data-translate="yysApp.yysAccount.detail.title">Yys Account</span> {{vm.yysAccount.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="yysApp.yysAccount.email">Email</span></dt>
+        <dd>
+            <span>{{vm.yysAccount.email}}</span>
+        </dd>
+        <dt><span data-translate="yysApp.yysAccount.name">Name</span></dt>
+        <dd>
+            <span>{{vm.yysAccount.name}}</span>
+        </dd>
+        <dt><span data-translate="yysApp.yysAccount.comment">Comment</span></dt>
+        <dd>
+            <span>{{vm.yysAccount.comment}}</span>
+        </dd>
+        <dt><span data-translate="yysApp.yysAccount.level">Level</span></dt>
+        <dd>
+            <span>{{vm.yysAccount.level}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="yys-account"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="yys-account-detail.edit({id:vm.yysAccount.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+
+
+<div>
+    <h2 data-translate="yysApp.yysCards.home.title">Yys Cards</h2>
+    <!--<jhi-alert></jhi-alert>-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="yys-account-detail.cardnew" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="yysApp.yysCards.home.createLabel">
+                        Create new Yys Cards
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+            <tr>
+                <th><span data-translate="global.field.id">ID</span></th>
+                <th><span data-translate="yysApp.yysCards.card">Card</span></th>
+                <th><span data-translate="yysApp.yysCards.level">Level</span></th>
+                <th><span data-translate="yysApp.yysCards.quantity">Quantity</span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="yysCards in vm.yysAccount.cards track by yysCards.id">
+                <td><a ui-sref="yys-cards-detail({id:yysCards.id})">{{yysCards.id}}</a></td>
+                <td data-translate="{{'yysApp.YysCard.' + yysCards.card}}">{{yysCards.card}}</td>
+                <td data-translate="{{'yysApp.YysCardLevel.' + yysCards.level}}">{{yysCards.level}}</td>
+                <td>{{yysCards.quantity}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                ui-sref="yys-account-detail.cardedit({cardId:yysCards.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="yys-account-detail.carddelete({cardId:yysCards.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                            <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div>
+    <h2 data-translate="yysApp.yysSuipian.home.title">Yys Suipians</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="yys-account-detail.suipiannew" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="yysApp.yysSuipian.home.createLabel">
+                        Create new Yys Suipian
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+            <tr>
+                <th><span data-translate="global.field.id">ID</span></th>
+                <th><span data-translate="yysApp.yysSuipian.role">Role</span></th>
+                <th><span data-translate="yysApp.yysSuipian.quantity">Quantity</span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="yysSuipian in vm.yysAccount.suipians track by yysSuipian.id">
+                <td><a ui-sref="yys-suipian-detail({id:yysSuipian.id})">{{yysSuipian.id}}</a></td>
+                <td>
+                    <a ui-sref="yys-role-detail({id:yysSuipian.role.roleName})">{{yysSuipian.role.roleName}}</a>
+                </td>
+                <td>{{yysSuipian.quantity}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                ui-sref="yys-account-detail.suipianedit({suipianId:yysSuipian.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="yys-account-detail.suipiandelete({suipianId:yysSuipian.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                            <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

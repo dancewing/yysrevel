@@ -1,0 +1,83 @@
+{
+    "yysApp": {
+        "yysAccount" : {
+            "home": {
+                "title": "Accounts",
+                "createLabel": "Create a new Account",
+                "exportLabel": "Export all accounts",
+                "createOrEditLabel": "Create or edit a Yys Account"
+            },
+            "created": "A new Yys Account is created with identifier {{ param }}",
+            "updated": "A Yys Account is updated with identifier {{ param }}",
+            "deleted": "A Yys Account is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Yys Account {{ id }}?"
+            },
+            "detail": {
+                "title": "Yys Account"
+            },
+            "email": "Email",
+            "name": "名称",
+            "comment" :"备注",
+            "level": "等级",
+            "suipians": "碎片",
+            "cards": "结界卡"
+        },
+
+        "YysCard" : {
+            "null": "",
+            "DOUYU": "斗鱼",
+            "TAIGU": "太鼓",
+            "MEISHI": "美食"
+        },
+
+        "YysCardLevel" : {
+            "null": "",
+            "FOUR": "四星",
+            "FIVE": "五星",
+            "SIX": "六星"
+        },
+
+        "yysCards" : {
+            "home": {
+                "title": "Yys Cards",
+                "createLabel": "Create a new Yys Cards",
+                "createOrEditLabel": "Create or edit a Yys Cards"
+            },
+            "created": "A new Yys Cards is created with identifier {{ param }}",
+            "updated": "A Yys Cards is updated with identifier {{ param }}",
+            "deleted": "A Yys Cards is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Yys Cards {{ id }}?"
+            },
+            "detail": {
+                "title": "Yys Cards"
+            },
+            "card": "Card",
+            "level": "Level",
+            "quantity": "Quantity",
+            "yysAccount": "Yys Account"
+        },
+
+        "yysSuipian" : {
+            "home": {
+                "title": "式神碎片",
+                "createLabel": "Create a new Yys Suipian",
+                "createOrEditLabel": "Create or edit a Yys Suipian"
+            },
+            "created": "A new Yys Suipian is created with identifier {{ param }}",
+            "updated": "A Yys Suipian is updated with identifier {{ param }}",
+            "deleted": "A Yys Suipian is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Yys Suipian {{ id }}?"
+            },
+            "detail": {
+                "title": "碎片"
+            },
+            "quantity": "数量",
+            "yysAccount": "账号",
+            "role": "式神"
+        }
+
+    }
+}

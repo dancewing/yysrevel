@@ -1,0 +1,23 @@
+{
+    "yysApp": {
+        "yysSuipian" : {
+            "home": {
+                "title": "式神碎片",
+                "createLabel": "Create a new Yys Suipian",
+                "createOrEditLabel": "Create or edit a Yys Suipian"
+            },
+            "created": "A new Yys Suipian is created with identifier {{ param }}",
+            "updated": "A Yys Suipian is updated with identifier {{ param }}",
+            "deleted": "A Yys Suipian is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Yys Suipian {{ id }}?"
+            },
+            "detail": {
+                "title": "碎片"
+            },
+            "quantity": "数量",
+            "yysAccount": "账号",
+            "role": "式神"
+        }
+    }
+}

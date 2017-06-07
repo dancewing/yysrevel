@@ -13,16 +13,18 @@
 
 
       <div>
-          <h2>Yys Accounts</h2>
+          <h2>Users2</h2>
           <div class="container-fluid">
               <div class="row">
                   <div class="col-xs-4 no-padding-left">
+                      <a href="{{url "User.Edit"}}">
                       <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-remote="{{url "User.Edit"}}" >
                           <span class="glyphicon glyphicon-plus"></span>
                           <span >
                               Create new Yys Account
                           </span>
                       </button>
+                      </a>
                   </div>
               </div>
           </div>
@@ -81,37 +83,12 @@
 
           {{end}}
 
-          <div class="container-fluid">
-              <div class="row">
-                  <div class="col-xs-4 no-padding-left">
-                      <button class="btn btn-primary" onclick="window.open('/api/yys-accounts/export')">
-                          <span class="glyphicon glyphicon-plus"></span>
-                          <span  data-translate="yysApp.yysAccount.home.exportLabel">
-                              Export all accounts
-                          </span>
-                      </button>
-                  </div>
-              </div>
-          </div>
       </div>
 
 
 
     </div>
 
-</div>
-
-<div id="myModal" class="modal hide fade">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> × </button>
-        <h3 id="myModalLabel">Modal header</h3>
-    </div>
-    <div class="modal-body">
-       <!-- remote content will be inserted here via jQuery load() -->
-    </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    </div>
 </div>
 
 {{template "footer.html" .}}
