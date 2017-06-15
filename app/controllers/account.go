@@ -53,8 +53,9 @@ func (c Account) Current() revel.Result {
 
 		return c.RenderJSON(user)
 	}
-
-	return c.RenderError(nil)
+	return c.RenderError(&revel.Error{
+		Title: "NOT Login",
+	})
 
 }
 
@@ -69,14 +70,14 @@ func (c Account) Login(username, password string, remember bool) revel.Result {
 			} else {
 				c.Session.SetNoExpiration()
 			}
-			c.Flash.Success("Welcome, " + username)
-			return c.RenderText("ok", nil)
+			//c.Flash.Success("Welcome, " + username)
+			return c.EmptyWithStatus(200)
 		}
 	}
 
-	c.Flash.Out["username"] = username
-	c.Flash.Error("Login failed")
-	return c.RenderError(nil)
+	//c.Flash.Out["username"] = username
+	//c.Flash.Error("Login failed")
+	return c.Unauthorized("Login failed", nil)
 }
 
 func (c Account) Logout() revel.Result {
