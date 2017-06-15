@@ -3,6 +3,8 @@ package controllers
 import (
 	"fmt"
 
+	"golang.org/x/crypto/bcrypt"
+
 	"github.com/dancewing/revel"
 	"github.com/dancewing/yysrevel/app/models"
 )
@@ -54,6 +56,27 @@ func (c Account) Current() revel.Result {
 
 	return c.RenderError(nil)
 
+}
+
+func (c Account) Login(username, password string, remember bool) revel.Result {
+	user := c.getUser(username)
+	if user != nil {
+		err := bcrypt.CompareHashAndPassword(user.HashedPassword, []byte(password))
+		if err == nil {
+			c.Session["user"] = username
+			if remember {
+				c.Session.SetDefaultExpiration()
+			} else {
+				c.Session.SetNoExpiration()
+			}
+			c.Flash.Success("Welcome, " + username)
+			return c.RenderText("ok", nil)
+		}
+	}
+
+	c.Flash.Out["username"] = username
+	c.Flash.Error("Login failed")
+	return c.RenderError(nil)
 }
 
 func (c Account) Logout() revel.Result {
